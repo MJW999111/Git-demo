@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Editable Table</title>
+
+    <!--data table-->
+    <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css"/>
+
+    <div th:include="common :: commonheader"></div>
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <div th:replace="common :: #leftmenu"></div>
+
+    <!-- main content start-->
+    <div class="main-content">
+
+        <!-- 头部分开始-->
+        <div th:replace="common:: headermenu"></div>
+        <!-- 头部分结束-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                Editable Table
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Data Table</a>
+                </li>
+                <li class="active"> Editable Table</li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <!--                            Editable Table-->
+                            <!--                            <span class="tools pull-right">-->
+                            <!--                        <a href="javascript:;" class="fa fa-chevron-down"></a>-->
+                            <!--                        <a href="javascript:;" class="fa fa-times"></a>-->
+                            <!--                     </span>-->
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table editable-table ">
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <button id="editable-sample_new" class="btn btn-primary">
+                                            添加 <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i
+                                                class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#">Print</a></li>
+                                            <li><a href="#">Save as PDF</a></li>
+                                            <li><a href="#">Export to Excel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="space15"></div>
+                                <table class="table table-striped table-hover table-bordered" id="editable-sample">
+
+                                    <thead>
+                                    <tr style="background: #ffa41a; color: #1CAF9A">
+                                        <th>#</th>
+                                        <th>name</th>
+                                        <th>gender</th>
+                                        <th>email</th>
+                                        <th>age</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="center" th:each="user:${page.records}">
+                                        <td th:text="${user.id}">Jonathan</td>
+                                        <td th:text="${user.name}">Jonathan</td>
+                                        <td th:text="${user.gender}">Jonathan</td>
+                                        <td th:text="${user.email}">Jonathan</td>
+                                        <td th:text="${user.age}">Jonathan</td>
+                                        <td>
+                                            <a th:href="@{/user/delete/{id}(id=${user.id},pn=${page.current})}"
+                                               class="btn btn-info" type="button">删除</a>
+                                            <a th:href="@{/user/delete/{id}(id=${user.id},pn=${page.current})}"
+                                               class="btn btn-info" type="button">编辑</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="dataTables_info" id="editable-sample_info">
+                                    当前第[[${page.current}]]页 &nbsp;总计[[${page.pages}]]页&nbsp; 共[[${page.total}]]条记录
+                                </div>
+                                <div class="dataTables_paginate paging_bootstrap pagination">
+                                    <ul>
+                                        <li class="prev disabled"><a th:href="@{#}">上一页</a></li>
+                                        <li th:class="${num==page.current?'active':''}"
+                                            th:each="num:${#numbers.sequence(1,page.pages)}">
+                                            <a th:href="@{/editable_table(pn=${num})}">[[${num}]]</a></li>
+                                        <li class="next">
+                                            <a th:href="@{/editable_table(pn=${page.current+1})}">下一页</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<div th:replace="common :: #commonscript"></div>
+
+<!--data table-->
+<script type="text/javascript" src="js/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+
+
+<!--script for editable table-->
+<!--<script src="js/editable-table.js"></script>-->
+
+
+<!-- END JAVASCRIPTS -->
+<script>
+    jQuery(document).ready(function () {
+        EditableTable.init();
+    });
+</script>
+
+</body>
+</html>
